@@ -50,9 +50,9 @@ const BestSeller = () => {
     };
     
   
-    const productsCard = items.map((item) => {
+    const productsCard = items.map((item, i) => {
       return (
-          <div>
+          <div key={'pc-'+i}>
             <Card className={'mx-auto border-0 py-2 product-card'}>
                 {item.listPrice && 
                     <div className={'tag-offer'}>
@@ -104,7 +104,7 @@ const BestSeller = () => {
 
     return (
         
-        <Container>
+        <Container className=" px-0">
             <Slider {...settings}>
                 {productsCard}
             </Slider>

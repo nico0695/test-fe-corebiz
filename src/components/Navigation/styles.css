@@ -1,22 +1,68 @@
-.nb-logo{
-    /* background: red; */
-}
-
 nav{
-    /* background: #fff; */
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    height: 80px;
 }
 
-.inp-search{
+input.inp-search{
     width: 100%;
     border: 0;
     border-bottom: 1px solid #dee2e6;
-
+    border-radius: 0;
     font-size: 13px;
+    color: #7A7A7A;
 }
 
-.inp-search:hover, .inp-search:focus-visible{
+input.inp-search:hover, input.inp-search:focus{
     outline: none;
+    box-shadow: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+
+
+nav .nav-link{
+    font-size: 13px;
+    color: #7A7A7A;
+}
+
+.navbar-brand{
+    margin-right: 0px;
+}
+
+.nav-link i{
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+
+/* search */
+.f-search{
+    position: relative;
+    width: 37vw;
+    margin-right: 10px;
+}
+
+.f-search i{
+    position: absolute;
+    right: 5px;
+    top: 6px;
+}
+
+.prod-count{
+    background: #F8475F;
+    color: white;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 10px;
+    float: right;
+}
+
+/* responsive */
+.collapse.show.navbar-collapse {
+    background: white;
+    z-index: 100;
 }

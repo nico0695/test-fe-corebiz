@@ -1,6 +1,6 @@
 .cont-newsletter input{
     height: 48px;
-    border: 0;
+    border: 10px;
 }
 
 .cont-newsletter input::placeholder {

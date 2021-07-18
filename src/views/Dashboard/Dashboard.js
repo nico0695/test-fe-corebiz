@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Row, Col, Button, Label, Input, Container } from 'reactstrap'
+import { Row, Col, Label, Container } from 'reactstrap'
 
 import CCarousel from '../../components/Carousel/Carousel.js';
 import BestSeller from '../../components/BestSeller/BestSeller.js';
@@ -20,7 +20,7 @@ function Dashboard() {
                     <Label className={'bs-title'}>Más Vendidos</Label>
                     <hr className={'my-1'}/>
                 </Col>
-                <Col xs={12} className={'mt-3'}>
+                <Col xs={12} className={'mt-3 px-0'}>
                     <BestSeller />
                 </Col>
             </Row>
@@ -28,7 +28,7 @@ function Dashboard() {
                 <Col xs={12}>
                     <Label className={'nl-title text-center d-block'}>¡Únete a nuestras novedades y promociones!</Label>
                 </Col>
-                <Col xs={12} md={{size: 6, offset: 3}} lg={{size: 4, offset: 4}} className={'my-3 px-0 px-md-3'}>
+                <Col xs={12} md={{size: 6, offset: 3}} lg={{size: 4, offset: 4}} className={'my-3 px-4 px-md-3'}>
                     <Newsletter />
                 </Col>
             </Row>
