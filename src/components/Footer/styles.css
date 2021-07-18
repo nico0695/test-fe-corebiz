@@ -1,0 +1,41 @@
+footer{
+    background: #000;
+    color: #fff;
+    /* height: 213px; */
+}
+
+footer .address-title{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+footer hr{
+    width: 44px;
+    border-bottom: 4.3px solid #fff;
+    opacity: 1;
+}
+
+footer p{
+    font-size: 13px;
+    font-weight: 100;
+    margin-bottom: 8px;
+}
+
+.cont-footer button{
+    background-color: #fff;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.cont-footer button i{
+    float: left;
+    font-size: 1.3em;
+}
+
+
+
+.cont-footer .by-text{
+    font-size: 10.6px;
+    font-weight: 200;
+}
