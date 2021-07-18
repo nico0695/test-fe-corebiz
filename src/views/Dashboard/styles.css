@@ -2,6 +2,8 @@ body {
     font-family: Nunito !important;
 }
 
+
+/* Mas Vendidos */
 .cont-bestSeller{
     max-width: 1200px;
 }
@@ -21,7 +23,7 @@ body {
 }
 
 
-
+/* Newsletter */
 .cont-newsletter {
     background-color: #F2F2F2;
 }
@@ -31,4 +33,31 @@ body {
     font-weight: 900;
 
     color: #333333;
+}
+
+
+
+
+
+
+/* Estilo de indicadores (carousel y slick) */
+.carousel-indicators li, .slick-dots li {
+    height: 10px !important;
+    width: 10px !important;
+    border-radius: 50%;
+    background-color: #BDBDBD !important;
+    opacity: 1 !important;
+    margin-right: 6px;
+    margin-left: 6px;
+}
+
+.carousel-indicators li.active, .slick-dots li.slick-active {
+    height: 10px !important;
+    width: 10px !important;
+    border-radius: 50%;
+    background-color: #F8475F !important;
+}
+
+.slick-dots li button{
+    visibility: hidden;
 }

@@ -15,7 +15,7 @@ function Dashboard() {
                     <CCarousel />
                 </Col>
             </Row>
-            <Row className="my-5 mx-auto cont-bestSeller">
+            <Row className="my-5 pb-3 mx-auto cont-bestSeller">
                 <Col xs={12}>
                     <Label className={'bs-title'}>Más Vendidos</Label>
                     <hr className={'my-1'}/>
@@ -28,7 +28,7 @@ function Dashboard() {
                 <Col xs={12}>
                     <Label className={'nl-title text-center d-block'}>¡Únete a nuestras novedades y promociones!</Label>
                 </Col>
-                <Col xs={12} md={{size: 6, offset: 3}} lg={{size: 4, offset: 4}} className={'my-3'}>
+                <Col xs={12} md={{size: 6, offset: 3}} lg={{size: 4, offset: 4}} className={'my-3 px-0 px-md-3'}>
                     <Newsletter />
                 </Col>
             </Row>

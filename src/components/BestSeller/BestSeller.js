@@ -1,84 +1,90 @@
 import React, { useState, useEffect } from "react";
 import {
-    Row,
-    Col,
-    Carousel,
-    CarouselItem,
-    CarouselControl,
+    Container,
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Label
 } from "reactstrap";
 import axios from "axios";
 
+import Slider from "react-slick";
+
 import "./styles.css";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 
 const BestSeller = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [animating, setAnimating] = useState(false);
-
     const [items, setItems] = useState([])
-  
-    const next = () => {
-      if (animating) return;
-      const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-      setActiveIndex(nextIndex);
-    };
-  
-    const previous = () => {
-      if (animating) return;
-      const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-      setActiveIndex(nextIndex);
-    };
-  
-    const goToIndex = (newIndex) => {
-      if (animating) return;
-      setActiveIndex(newIndex);
-    };
 
-    const slides = items.map((item) => {
+    const NextArrow = (props) => {
+        const { className, style, onClick } = props;
+        return <i className={'fa fa-chevron-right arrow-r'} onClick={onClick}/>;
+    }
+    
+    const PrevArrow = (props) => {
+        const { className, style, onClick } = props;
+        return <i className={'fa fa-chevron-left arrow-l'} onClick={onClick}/>;
+    }
+    
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        adaptiveHeight: true,
+        activeSlide: 0,
+        responsive: [
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2
+              }
+            },
+        ],
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />
+    };
+    
+  
+    const productsCard = items.map((item) => {
       return (
-        <CarouselItem
-          onExiting={() => setAnimating(true)}
-          onExited={() => setAnimating(false)}
-          key={item.src}
-          cssModule={{background: 'red'}}
-        >
-          <Row xs={4}>
-            {item.map((e) => <Col>
-                <Card className={'mx-auto border-0 py-2 product-card'}>
-                    <CardImg top width="216px" src={e.imageUrl} alt="" />
-                    {e.listPrice && 
-                        <div className={'tag-offer'}>
-                            <Label>OFF</Label>
-                        </div>}
-                    <CardBody className={'text-center'}>
-                        <CardTitle tag="h5" className={'my-1 text-truncate'}>{e.productName}</CardTitle>
-                        <div className={'my-2'}>
-                            <div style={{width: '67px', display: 'flex'}} className={'mx-auto justify-content-between'}>
-                                <i className={`fa fa-${e.stars<1 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${e.stars<2 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${e.stars<3 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${e.stars<4 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${e.stars<5 ? "star-o" : "star"}`} />
-                            </div>
+          <div>
+            <Card className={'mx-auto border-0 py-2 product-card'}>
+                {item.listPrice && 
+                    <div className={'tag-offer'}>
+                        <Label>OFF</Label>
+                    </div>}
+                <CardImg top width="216px" src={item.imageUrl} alt="" />
+                
+                <CardBody className={'text-center'}>
+                    <CardTitle tag="h5" className={'my-1 text-truncate'}>{item.productName}</CardTitle>
+                    <div className={'my-2'}>
+                        <div style={{width: '67px', display: 'flex'}} className={'mx-auto justify-content-between'}>
+                            <i className={`fa fa-${item.stars<1 ? "star-o" : "star"}`} />
+                            <i className={`fa fa-${item.stars<2 ? "star-o" : "star"}`} />
+                            <i className={`fa fa-${item.stars<3 ? "star-o" : "star"}`} />
+                            <i className={`fa fa-${item.stars<4 ? "star-o" : "star"}`} />
+                            <i className={`fa fa-${item.stars<5 ? "star-o" : "star"}`} />
                         </div>
-                        <CardSubtitle tag="h6" className="my-2">{`de $ ${e.listPrice ? e.listPrice : e.price}`}</CardSubtitle>
-                        <CardText>
-                            <span>{`por $ ${e.price}`}</span>
+                    </div>
+                    <CardSubtitle tag="h6" className="my-2">{`de $ ${item.listPrice ? item.listPrice : item.price}`}</CardSubtitle>
+                    <CardText>
+                        <span>{`por $ ${item.price}`}</span>
+                        <br/>
+                        {item.installments.length>0 ?
+                            `o en ${item.installments[0].quantity}x de R $ ${item.installments[0].value}`
+                        :
                             <br/>
-                            {e.installments.length>0 ?
-                                `o en ${e.installments[0].quantity}x de R $ ${e.installments[0].value}`
-                            :
-                                <br/>
-                            }
-                        </CardText>
-                        <Button>COMPRAR</Button>
-                    </CardBody>
-                </Card>
-            </Col>)}
-          </Row>
-        </CarouselItem>
+                        }
+                    </CardText>
+                    <Button>COMPRAR</Button>
+                </CardBody>
+            </Card>
+        </div>
       );
     });
 
@@ -86,19 +92,7 @@ const BestSeller = () => {
         let url = 'https://corebiz-test.herokuapp.com/api/v1/products';
         axios.get(url)
         .then(response => {
-            // console.log('response= ',response.data)
-            // console.log('data= ',response.data.slice(-4))
-            let data = response.data;
-            let arItems = [];
-            for(let i=0; i<data.length; i += 4){
-                if((data.length-i)<4){
-                    arItems.push(data.slice(-4));
-                }else{
-                    arItems.push(data.slice(i,4));
-                }
-            }
-            setItems(arItems);
-
+            setItems(response.data);
         })
     }
 
@@ -106,20 +100,15 @@ const BestSeller = () => {
         fetchProducts();
     }, [])
     
+    console.log('items= ',items)
+
     return (
-        <Carousel activeIndex={activeIndex} next={next} previous={previous} interval={false} controls={false}>
-            {slides}
-            <CarouselControl
-                direction="prev"
-                // directionText="Previous"
-                onClickHandler={previous}
-            />
-            <CarouselControl
-                direction="next"
-                // directionText="Next"
-                onClickHandler={next}
-            />
-        </Carousel>
+        
+        <Container>
+            <Slider {...settings}>
+                {productsCard}
+            </Slider>
+        </Container>
     );
 };
 

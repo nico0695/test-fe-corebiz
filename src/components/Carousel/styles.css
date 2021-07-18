@@ -5,7 +5,6 @@
 }
 
 .l-caption{
-    /* float: right; */
     width: 52%;
     height: 430px;
 
@@ -25,37 +24,19 @@
 
 .l-text h3{
     font-size: 30px;
-    /* font-family: Nunito; */
     font-weight: bold;
 }
 
 .l-text h2{
     margin-top: 5px;
     font-size: 48px;
-    /* font-family: Nunito; */
     font-weight: 900;
     max-width: 590px;
 }
 
-.carousel-indicators li {
-    height: 10px !important;
-    width: 10px !important;
-    border-radius: 50%;
-    background-color: #BDBDBD !important;
-    opacity: 1 !important;
-    margin-right: 6px;
-    margin-left: 6px;
-}
-
-.carousel-indicators li.active {
-    height: 10px !important;
-    width: 10px !important;
-    border-radius: 50%;
-    background-color: #F8475F !important;
-}
 
 .carousel-indicators{
-    margin-bottom: 37px;
+    margin-bottom: 37px !important;
 }
 
 
