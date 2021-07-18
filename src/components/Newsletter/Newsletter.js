@@ -11,6 +11,7 @@ const Newsletter = () => {
         name: "",
     })
 
+    // Actualiza el estado data
     const handleInputChange = (e) => {
         setData({
             ...data,
@@ -18,6 +19,7 @@ const Newsletter = () => {
         })
     }
 
+    // Envia los datos cargados a la api de newsletter
     const onSubmit = (e) => {
         e.preventDefault()
         let url = "https://corebiz-test.herokuapp.com/api/v1/newsletter"

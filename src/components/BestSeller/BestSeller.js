@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
+import { 
     Container,
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Label
 } from "reactstrap";
 import axios from "axios";
+import store from '../../store/';
+import { addProduct } from "../../actions";
 
 import Slider from "react-slick";
 
@@ -12,10 +14,11 @@ import "./styles.css";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-
+// Lista los productos y permite agregar al carrito
 const BestSeller = () => {
     const [items, setItems] = useState([])
 
+    // Botones para avanzar y retroceder en la lista de productos
     const NextArrow = (props) => {
         const { className, style, onClick } = props;
         return <i className={'fa fa-chevron-right arrow-r'} onClick={onClick}/>;
@@ -26,7 +29,7 @@ const BestSeller = () => {
         return <i className={'fa fa-chevron-left arrow-l'} onClick={onClick}/>;
     }
     
-
+    // Configuracion par ael componente Slider
     const settings = {
         dots: true,
         infinite: true,
@@ -49,7 +52,11 @@ const BestSeller = () => {
         prevArrow: <PrevArrow />
     };
     
-  
+    const onClick = (id) => {
+        // Se agrega el id al estado de productos en la store
+        store.dispatch(addProduct(id))
+    }
+    
     const productsCard = items.map((item, i) => {
       return (
           <div key={'pc-'+i}>
@@ -81,13 +88,14 @@ const BestSeller = () => {
                             <br/>
                         }
                     </CardText>
-                    <Button>COMPRAR</Button>
+                    <Button onClick={() => onClick(item.productId)}>COMPRAR</Button>
                 </CardBody>
             </Card>
         </div>
       );
     });
 
+    // Caputra los productos y los guardo en el estado
     const fetchProducts = () => {
         let url = 'https://corebiz-test.herokuapp.com/api/v1/products';
         axios.get(url)
@@ -99,8 +107,6 @@ const BestSeller = () => {
     useEffect(() => {
         fetchProducts();
     }, [])
-    
-    console.log('items= ',items)
 
     return (
         

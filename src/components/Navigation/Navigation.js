@@ -9,6 +9,7 @@ import {
     NavLink,
     Input,
   } from 'reactstrap';
+import store from '../../store';
 
 import './styles.css'
 
@@ -19,6 +20,7 @@ function Navigation() {
     const toggle = () => setIsOpen(!isOpen);
 
     const [search, setSearch] = useState('')
+    const [cantProducts, setCantProducts] = useState(0)
 
     const handleChange = (e) => {
         setSearch(e.target.value);
@@ -29,7 +31,13 @@ function Navigation() {
         console.log('Buscando '+search+'...')
         setSearch('');
     }
-    
+
+    const unsubscribe = store.subscribe(() => {
+        let products = store.getState().products;
+        setCantProducts(products.length)
+        unsubscribe();
+    })
+
     return (
         <Navbar light expand={'md'} className={''}>
             <NavbarToggler onClick={toggle} />
@@ -49,12 +57,11 @@ function Navigation() {
                     <NavItem>
                         <NavLink><i className={'fa fa-user-o mr-2'} />Mi cuenta</NavLink>
                     </NavItem>
-                    
                 </Nav>
             </Collapse>
             <Nav>
                 <NavItem>
-                    <NavLink><i className={'fa fa-shopping-cart mr-2'} /><div className={'prod-count'}>1</div></NavLink>
+                    <NavLink><i className={'fa fa-shopping-cart mr-2'} /><div className={'prod-count'}>{cantProducts}</div></NavLink>
                 </NavItem>
             </Nav>
         </Navbar>

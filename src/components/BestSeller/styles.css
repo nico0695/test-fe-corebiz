@@ -63,6 +63,10 @@
     padding-right: 28px;
 }
 
+.product-card button:focus{
+    box-shadow: none;
+}
+
 .product-card i{
     color:#F8475F;
     font-size: 12px;
