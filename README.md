@@ -1,10 +1,9 @@
 ## Instalacion -  
 1- Clonar repositorio (git clone https://github.com/nico0695/test-fe-corebiz.git)  
-2- Abrir una terminal en la carpeta del proyecto  
-2- Ejecutar "npm install"  
+2- Ejecutar init.bat o Abrir una terminal en la carpeta del proyecto y ejecutar "npm install"  
 
 ## Ejecutar - 
-1- Ejecutar en la terminal "npm start"  
+1- Ejecutar start.bat o en la terminal ejecutar "npm start"  
 
 ## Prueba - 
 1- Lista de productos "Mas vendidos"  
