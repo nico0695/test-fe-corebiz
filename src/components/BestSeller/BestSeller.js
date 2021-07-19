@@ -24,7 +24,7 @@ const BestSeller = () => {
         return <i className={`fa fa-chevron-${(isNext) ? 'right arrow-r' : 'left arrow-l'}`} onClick={onClick}/>;
     }
     
-    // Configuracion par ael componente Slider
+    // Configuracion para el componente Slider
     const settings = {
         dots: true,
         infinite: true,
