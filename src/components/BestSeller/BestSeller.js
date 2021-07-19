@@ -18,15 +18,10 @@ import "slick-carousel/slick/slick-theme.css";
 const BestSeller = () => {
     const [items, setItems] = useState([])
 
-    // Botones para avanzar y retroceder en la lista de productos
-    const NextArrow = (props) => {
-        const { className, style, onClick } = props;
-        return <i className={'fa fa-chevron-right arrow-r'} onClick={onClick}/>;
-    }
-    
-    const PrevArrow = (props) => {
-        const { className, style, onClick } = props;
-        return <i className={'fa fa-chevron-left arrow-l'} onClick={onClick}/>;
+    // Botones para avanzar y retroceder en la lista de productos {isNext coloca la flecha a la derecha}
+    const Arrows = (props) => {
+        const { onClick, isNext } = props;
+        return <i className={`fa fa-chevron-${(isNext) ? 'right arrow-r' : 'left arrow-l'}`} onClick={onClick}/>;
     }
     
     // Configuracion par ael componente Slider
@@ -48,8 +43,8 @@ const BestSeller = () => {
               }
             },
         ],
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />
+        nextArrow: <Arrows isNext={true}/>,
+        prevArrow: <Arrows />
     };
     
     const onClick = (id) => {
@@ -58,41 +53,48 @@ const BestSeller = () => {
     }
     
     const productsCard = items.map((item, i) => {
-      return (
-          <div key={'pc-'+i}>
-            <Card className={'mx-auto border-0 py-2 product-card'}>
-                {item.listPrice && 
-                    <div className={'tag-offer'}>
-                        <Label>OFF</Label>
-                    </div>}
-                <CardImg top width="216px" src={item.imageUrl} alt="" />
-                
-                <CardBody className={'text-center'}>
-                    <CardTitle tag="h5" className={'my-1 text-truncate'}>{item.productName}</CardTitle>
-                    <div className={'my-2'}>
-                        <div style={{width: '67px', display: 'flex'}} className={'mx-auto justify-content-between'}>
-                            <i className={`fa fa-${item.stars<1 ? "star-o" : "star"}`} />
-                            <i className={`fa fa-${item.stars<2 ? "star-o" : "star"}`} />
-                            <i className={`fa fa-${item.stars<3 ? "star-o" : "star"}`} />
-                            <i className={`fa fa-${item.stars<4 ? "star-o" : "star"}`} />
-                            <i className={`fa fa-${item.stars<5 ? "star-o" : "star"}`} />
+        let stars = []
+        for(let n=1; n<=5; n++){
+            stars.push(<i className={`fa fa-${item.stars<n ? "star-o" : "star"}`} />)
+            // console.log('entro= ',n)
+        }
+
+        return (
+            <div key={'pc-'+i}>
+                <Card className={'mx-auto border-0 py-2 product-card'}>
+                    {item.listPrice && 
+                        <div className={'tag-offer'}>
+                            <Label>OFF</Label>
+                        </div>}
+                    <CardImg top width="216px" src={item.imageUrl} alt="" />
+                    
+                    <CardBody className={'text-center'}>
+                        <CardTitle tag="h5" className={'my-1 text-truncate'}>{item.productName}</CardTitle>
+                        <div className={'my-2'}>
+                            <div style={{width: '67px', display: 'flex'}} className={'mx-auto justify-content-between'}>
+                                {stars}
+                                {/* <i className={`fa fa-${item.stars<1 ? "star-o" : "star"}`} />
+                                <i className={`fa fa-${item.stars<2 ? "star-o" : "star"}`} />
+                                <i className={`fa fa-${item.stars<3 ? "star-o" : "star"}`} />
+                                <i className={`fa fa-${item.stars<4 ? "star-o" : "star"}`} />
+                                <i className={`fa fa-${item.stars<5 ? "star-o" : "star"}`} /> */}
+                            </div>
                         </div>
-                    </div>
-                    <CardSubtitle tag="h6" className="my-2">{`de $ ${item.listPrice ? item.listPrice : item.price}`}</CardSubtitle>
-                    <CardText>
-                        <span>{`por $ ${item.price}`}</span>
-                        <br/>
-                        {item.installments.length>0 ?
-                            `o en ${item.installments[0].quantity}x de R $ ${item.installments[0].value}`
-                        :
+                        <CardSubtitle tag="h6" className="my-2">{`de $ ${item.listPrice ? item.listPrice : item.price}`}</CardSubtitle>
+                        <CardText>
+                            <span>{`por $ ${item.price}`}</span>
                             <br/>
-                        }
-                    </CardText>
-                    <Button onClick={() => onClick(item.productId)}>COMPRAR</Button>
-                </CardBody>
-            </Card>
-        </div>
-      );
+                            {item.installments.length>0 ?
+                                `o en ${item.installments[0].quantity}x de R $ ${item.installments[0].value}`
+                            :
+                                <br/>
+                            }
+                        </CardText>
+                        <Button onClick={() => onClick(item.productId)}>COMPRAR</Button>
+                    </CardBody>
+                </Card>
+            </div>
+        );
     });
 
     // Caputra los productos y los guardo en el estado

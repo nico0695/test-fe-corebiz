@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
-import {
-    Collapse,
+import { Collapse,
     Navbar,
     NavbarToggler,
     NavbarBrand,
     Nav,
     NavItem,
     NavLink,
-    Input,
+    Input, 
+    Popover,  
+    PopoverBody,
+    Button,
   } from 'reactstrap';
 import store from '../../store';
+import { cleanProduct } from "../../actions";
 
 import './styles.css'
 
@@ -18,6 +21,10 @@ import Logo from './logo-corebiz-black.svg'
 function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+
+    const [isOpenPopover, setIsOpenPopover] = useState(false
+        )
+    const togglePopover = () => setIsOpenPopover(!isOpenPopover)
 
     const [search, setSearch] = useState('')
     const [cantProducts, setCantProducts] = useState(0)
@@ -32,6 +39,7 @@ function Navigation() {
         setSearch('');
     }
 
+    // Cuando se modifique la store actualiza el estado de productos.
     const unsubscribe = store.subscribe(() => {
         let products = store.getState().products;
         setCantProducts(products.length)
@@ -47,7 +55,7 @@ function Navigation() {
             
             <Collapse isOpen={isOpen} navbar>
                 <Nav style={{marginLeft: 'auto'}}>
-                    <NavItem className={''}>
+                    <NavItem>
                         <form className="form-inline f-search">
                             <i className="fa fa-search i-inp-search" onClick={onSubmit}/>
                             <Input className="inp-search" placeholder="¿Qué estás buscando?" value={search} onChange={handleChange}/>
@@ -61,7 +69,23 @@ function Navigation() {
             </Collapse>
             <Nav>
                 <NavItem>
-                    <NavLink><i className={'fa fa-shopping-cart mr-2'} /><div className={'prod-count'}>{cantProducts}</div></NavLink>
+                    <NavLink onClick={() => togglePopover()}><i className={'fa fa-shopping-cart mr-2'} id={'pop-prod'}/><div className={'prod-count'}>{cantProducts}</div></NavLink>
+                    <Popover
+                        trigger="legacy"
+                        placement={'bottom'}
+                        isOpen={isOpenPopover}
+                        target={'pop-prod'}
+                        toggle={togglePopover}
+                    >
+                        <PopoverBody>
+                            <div className="d-block text-center">
+                                {`Hay ${cantProducts} articulos en el carrito.`}
+                            </div>
+                            <div>
+                                <Button color={'danger'} block onClick={() => store.dispatch(cleanProduct())} className={'mt-2 px-2 w-100'}>Eliminar</Button>
+                            </div>
+                        </PopoverBody>
+                    </Popover>
                 </NavItem>
             </Nav>
         </Navbar>

@@ -1,3 +1,4 @@
+/* fondo carousel */
 .l-img img{
     float: right;
     width: 52%;
@@ -13,9 +14,7 @@
 }
 
 
-
-
-
+/* Titulo Carousel */
 .l-text{
     color: white;
     margin-top: 132px;

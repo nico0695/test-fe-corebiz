@@ -6,3 +6,9 @@ export const addProduct = (id) => {
         }
     }
 }
+
+export const cleanProduct = (id) => {
+    return {
+        type: "CLEAN_PRODUCT",
+    }
+}

@@ -4,3 +4,9 @@
 
 ## Ejecutar - 
 1- ejecutar en la terminal "npm start"
+
+## Prueba - 
+1- Lista de productos "Mas vendidos"
+2- Agregar productos al carritos "Comprar"
+3- En el popover del carrito poder eliminar los productos seleccionados
+4- Enviar solicitud de newsletter
