@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Collapse,
     Navbar,
     NavbarToggler,
@@ -12,7 +12,7 @@ import { Collapse,
     Button,
   } from 'reactstrap';
 import store from '../../store';
-import { cleanProduct } from "../../actions";
+import { cleanProduct, restoreProduct } from "../../actions";
 
 import './styles.css'
 
@@ -29,6 +29,12 @@ function Navigation() {
     const [search, setSearch] = useState('')
     const [cantProducts, setCantProducts] = useState(0)
 
+    useEffect(() => {
+        // Al renderizar el componente si hay productos en el localStorage los cargo en el store
+        if(localStorage.getItem('products')!=null && localStorage.getItem('products')!="")
+            store.dispatch(restoreProduct(JSON.parse(localStorage.getItem('products'))));
+    }, [])
+
     const handleChange = (e) => {
         setSearch(e.target.value);
     }
@@ -43,6 +49,8 @@ function Navigation() {
     const unsubscribe = store.subscribe(() => {
         let products = store.getState().products;
         setCantProducts(products.length)
+        // Guardo el store de products en localStorage
+        localStorage.setItem('products', (products.length==0) ? "" : JSON.stringify(products))
         unsubscribe();
     })
 
@@ -52,7 +60,6 @@ function Navigation() {
             <NavbarBrand href="/">
                 <img src={Logo} width={181} height={41} className="d-inline-block align-top nb-logo"/>
             </NavbarBrand>
-            
             <Collapse isOpen={isOpen} navbar>
                 <Nav style={{marginLeft: 'auto'}}>
                     <NavItem>

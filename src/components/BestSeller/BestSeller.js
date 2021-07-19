@@ -56,7 +56,6 @@ const BestSeller = () => {
         let stars = []
         for(let n=1; n<=5; n++){
             stars.push(<i className={`fa fa-${item.stars<n ? "star-o" : "star"}`} />)
-            // console.log('entro= ',n)
         }
 
         return (
@@ -73,11 +72,6 @@ const BestSeller = () => {
                         <div className={'my-2'}>
                             <div style={{width: '67px', display: 'flex'}} className={'mx-auto justify-content-between'}>
                                 {stars}
-                                {/* <i className={`fa fa-${item.stars<1 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${item.stars<2 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${item.stars<3 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${item.stars<4 ? "star-o" : "star"}`} />
-                                <i className={`fa fa-${item.stars<5 ? "star-o" : "star"}`} /> */}
                             </div>
                         </div>
                         <CardSubtitle tag="h6" className="my-2">{`de $ ${item.listPrice ? item.listPrice : item.price}`}</CardSubtitle>

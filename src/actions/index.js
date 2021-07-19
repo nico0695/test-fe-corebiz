@@ -7,8 +7,17 @@ export const addProduct = (id) => {
     }
 }
 
-export const cleanProduct = (id) => {
+export const cleanProduct = () => {
     return {
         type: "CLEAN_PRODUCT",
+    }
+}
+
+export const restoreProduct = (products) => {
+    return {
+        type: "RESTORE_PRODUCT",
+        payload: {
+            products,
+        }
     }
 }

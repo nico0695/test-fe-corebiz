@@ -17,7 +17,7 @@ input.inp-search{
 input.inp-search:hover, input.inp-search:focus{
     outline: none;
     box-shadow: none;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid #a8a8a8;
 }
 
 
@@ -37,7 +37,7 @@ nav .nav-link{
 }
 
 
-/* search */
+/* input search */
 .f-search{
     position: relative;
     width: 37vw;
